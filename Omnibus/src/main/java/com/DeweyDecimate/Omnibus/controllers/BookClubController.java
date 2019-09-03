@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -54,11 +55,19 @@ public class BookClubController {
         m.addAttribute("loggedUser", currentUser);
         return "clubs";
 
+    }
+
     //TODO: create clubs/id route
+    @GetMapping("/clubs/{randomId}")
+    public String getSpecificClub(@PathVariable String randomId, Principal p, Model m){
+        BookClub bookClub = bookClubRepository.findByRandomId(randomId);
+        m.addAttribute("currentClub", bookClub);
+        ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
+        m.addAttribute("loggedUser", applicationUser);
+        return "oneClub";
+    }
 
     //TODO: create new book route
-
-    }
 
 
 
