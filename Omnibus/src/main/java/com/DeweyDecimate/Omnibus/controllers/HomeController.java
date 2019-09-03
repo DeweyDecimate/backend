@@ -22,13 +22,14 @@ public class HomeController {
     @GetMapping("/signup")
     public String getSignup(Principal p, Model m) {
         m.addAttribute("principal", p);
-        m.addAttribute("loggedUser", applicationUserRepository.findByUsername(p.getName()));
+        
         return "signup";
     }
 
     @GetMapping("/login")
     public String getLoginPage(Principal p, Model m) {
         m.addAttribute("principal", p);
+
         return "login";
     }
 
