@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
-<h1>Hello World</h1>
+<body class="text-center">
+    <header>
+        <nav th:replace="fragments/nav :: nav"></nav>
+    </header>
+    <main class="mt-5 d-flex p-3 justify-content-center">
+        <div class="w-50 m-3 shadow bg-light rounded">
+            <img src="/default-avatar.png" width="40%" class="m-3">
+            <div class="text-left p-5">
+                <h3 th:text="${viewedUser.username}">username</h3>
+                <h5 class="text-muted"><span th:text="${viewedUser.firstName}">first name</span> <span th:text="${viewedUser.lastName}">last name</span></h5>
+            </div>
 
+        </div>
+
+        <div class="w-25 m-3 shadow bg-light rounded">
+            <a class="m-4 btn btn-dark btn-lg w-75" href="/clubs" role="button">Start a Club</a>
+        </div>
+
+    </main>
 </body>
 </html>
