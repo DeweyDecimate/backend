@@ -23,7 +23,7 @@ public class ApplicationUser implements UserDetails {
     String lastName;
     String userImg;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "applicationUser")
     Set<Membership> memberships;
 
     // ---------------------------- Constructors -------------------------------

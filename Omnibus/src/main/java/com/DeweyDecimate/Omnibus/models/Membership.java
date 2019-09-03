@@ -12,7 +12,7 @@ public class Membership {
     long id;
 
     @ManyToOne
-    ApplicationUser userId;
+    ApplicationUser applicationUser;
 
     @ManyToOne
     BookClub bookClubId;
@@ -21,9 +21,8 @@ public class Membership {
 
 
 
-
-    public Membership(ApplicationUser userId, BookClub bookClubId, Date dateJoined) {
-        this.userId = userId;
+    public Membership(ApplicationUser applicationUser, BookClub bookClubId, Date dateJoined) {
+        this.applicationUser = applicationUser;
         this.bookClubId = bookClubId;
         this.dateJoined = dateJoined;
     }
@@ -31,15 +30,12 @@ public class Membership {
     public Membership(){}
 
 
-
-
-
     public long getId() {
         return id;
     }
 
-    public ApplicationUser getUserId() {
-        return userId;
+    public ApplicationUser getApplicationUser() {
+        return applicationUser;
     }
 
     public BookClub getBookClubId() {
