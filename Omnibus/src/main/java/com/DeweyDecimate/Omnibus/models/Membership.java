@@ -19,8 +19,6 @@ public class Membership {
 
     Date dateJoined;
 
-
-
     public Membership(ApplicationUser applicationUser, BookClub bookClubId, Date dateJoined) {
         this.applicationUser = applicationUser;
         this.bookClubId = bookClubId;
@@ -29,6 +27,7 @@ public class Membership {
 
     public Membership(){}
 
+    // ---------------------------- Getters & Setters -------------------------------
 
     public long getId() {
         return id;
