@@ -206,6 +206,7 @@ Temporary Items
 # IDE
 **/.vscode/
 **/.settings/
+application.properties
 
 # End of https://www.gitignore.io/api/java,macos,android,androidstudio
 **markdown-navigator.xml
