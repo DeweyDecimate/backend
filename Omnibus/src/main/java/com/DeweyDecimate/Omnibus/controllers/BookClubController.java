@@ -57,7 +57,7 @@ public class BookClubController {
 
     }
 
-    //TODO: create clubs/id route
+
     @GetMapping("/clubs/{randomId}")
     public String getSpecificClub(@PathVariable String randomId, Principal p, Model m){
         BookClub bookClub = bookClubRepository.findByRandomId(randomId);
@@ -67,7 +67,7 @@ public class BookClubController {
         return "oneClub";
     }
 
-    //TODO: create new book route
+
 
 
 

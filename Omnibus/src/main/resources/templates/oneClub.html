@@ -7,8 +7,30 @@
 <body>
     <p th:text="${loggedUser.username}"></p>
     <p th:text="${currentClub.randomId}"></p>
-    <p th:text="${currentClub.books[0].title}"></p>
+    <div th:if="${currentClub.books.size()>0}">
+        <div th:each="book : ${currentClub.books}">
+            <p th:text="${book.title}"></p>
+            <div class="container">
+                <form method="POST" action="/book">
 
+                    <div class="form-group">
+                        <input name="bookClubId" type="hidden"  th:value="${currentClub.id}">
+                    </div>
+
+                    <div class="form-group">
+                        <input name="userId" type="hidden"  th:value="${loggedUser.id}">
+                    </div>
+                    <div class="form-group">
+                        <input name="bookId" type="hidden"  th:value="${currentClub.books[0].id}">
+                    </div>
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-primary btn-md">Delete</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
 
     <div class="container">
         <h1>Add a new book</h1>
