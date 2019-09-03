@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>One Club</title>
+</head>
+<body>
+    <p th:text="${loggedUser.username}"></p>
+    <p th:text="${currentClub.randomId}"></p>
+    <p th:text="${currentClub.books[0].title}"></p>
+
+
+    <div class="container">
+        <h1>Add a new book</h1>
+        <form method="POST" action="/book">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input name="title" type="text" id="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input name="author" type="text" id="author" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input name="description" type="text" id="description" required>
+            </div>
+
+            <div class="form-group">
+                <input name="bookClubId" type="hidden" id="bookClubId" th:value="${currentClub.id}">
+            </div>
+
+            <div class="form-group">
+                <input name="userId" type="hidden" id="userId" th:value="${loggedUser.id}">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-md">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

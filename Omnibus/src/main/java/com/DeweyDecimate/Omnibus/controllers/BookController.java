@@ -23,14 +23,16 @@ public class BookController {
     BookRepository bookRepository;
 
     @PostMapping("/book")
-    public RedirectView addBookToClub(String title, String author, String description, String bookImg, long bookClubId, String randomId){
+    public RedirectView addBookToClub(String title, String author, String description, String bookImg, long bookClubId, long userId){
         BookClub currentClub = bookClubRepository.getOne(bookClubId);
-        Book newBook = new Book(title,author,description,bookImg,currentClub);
-        bookRepository.save(newBook);
+        ApplicationUser applicationUser = applicationUserRepository.getOne(userId);
+        for(Membership m : currentClub.getMemberships()){
+            if(m.getApplicationUser().getId() == userId){
+                Book newBook = new Book(title,author,description,bookImg,currentClub);
+                bookRepository.save(newBook);
+            }
+        }
 
-
-
-
-        return new RedirectView("/clubs/"+randomId);
+        return new RedirectView("/clubs/" + currentClub.getRandomId());
     }
 }
