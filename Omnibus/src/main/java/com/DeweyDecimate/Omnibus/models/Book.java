@@ -16,9 +16,6 @@ public class Book {
     @ManyToOne
     BookClub bookClubId;
 
-
-
-
     public Book(String title, String author, String description, String bookImg, BookClub bookClubId) {
         this.title = title;
         this.author = author;
@@ -28,9 +25,6 @@ public class Book {
     }
 
     public Book(){}
-
-
-
 
     public long getId() {
         return id;
