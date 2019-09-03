@@ -11,13 +11,13 @@ public class HomeController {
 
     @GetMapping("/")
     public String getHome(Principal p, Model m) {
-        m.addAttribute("user", p);
+        m.addAttribute("loggedUser", p);
         return "index";
     }
 
     @GetMapping("/signup")
     public String getSignup(Principal p, Model m) {
-        m.addAttribute("user", p);
+        m.addAttribute("loggedUser", p);
         return "signup";
     }
 
