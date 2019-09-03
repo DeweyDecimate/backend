@@ -51,6 +51,7 @@ public class BookClubController {
     @GetMapping("/clubs")
     public String getClub(Principal p, Model m){
         ApplicationUser currentUser = applicationUserRepository.findByUsername(p.getName());
+        m.addAttribute("principal", p);
         m.addAttribute("bookclubs", bookClubRepository.findAll());
         m.addAttribute("loggedUser", currentUser);
         return "clubs";
@@ -61,6 +62,7 @@ public class BookClubController {
     @GetMapping("/clubs/{randomId}")
     public String getSpecificClub(@PathVariable String randomId, Principal p, Model m){
         BookClub bookClub = bookClubRepository.findByRandomId(randomId);
+        m.addAttribute("principal", p);
         m.addAttribute("currentClub", bookClub);
         ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
         m.addAttribute("loggedUser", applicationUser);
