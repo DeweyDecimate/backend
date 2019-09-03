@@ -24,9 +24,14 @@ public class ApplicationUserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    //TODO: generate default avatar
     @PostMapping("/users")
     public RedirectView createUser(String username, String password, String firstname, String lastname, String userImg){
-        ApplicationUser newUser = new ApplicationUser(username, passwordEncoder.encode(password), firstname, lastname, userImg);
+        ApplicationUser newUser = new ApplicationUser(username,
+                passwordEncoder.encode(password),
+                firstname,
+                lastname,
+                userImg);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
 
@@ -38,7 +43,7 @@ public class ApplicationUserController {
 
     @GetMapping("/myprofile")
     public String getMyprofile(Principal p, Model m){
-        m.addAttribute("loggedUser", applicationUserRepository.findByUsername(p.getName()));
+        m.addAttribute("viewedUser", applicationUserRepository.findByUsername(p.getName()));
         return "myprofile";
     }
 }

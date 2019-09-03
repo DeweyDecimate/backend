@@ -49,9 +49,14 @@ public class BookClubController {
 
     @GetMapping("/clubs")
     public String getClub(Principal p, Model m){
-        List<BookClub> test = bookClubRepository.findAll();
-        m.addAttribute("bookclubs",  bookClubRepository.findAll());
+        ApplicationUser currentUser = applicationUserRepository.findByUsername(p.getName());
+        m.addAttribute("bookclubs", bookClubRepository.findAll());
+        m.addAttribute("loggedUser", currentUser);
         return "clubs";
+
+    //TODO: create clubs/id route
+
+    //TODO: create new book route
 
     }
 
