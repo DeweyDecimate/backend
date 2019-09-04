@@ -168,10 +168,12 @@
                             <img th:src="${post.discussionUser.userImg}" onerror="this.onerror=null; this.src='/default-avatar.png'" alt="user profile picture" width="15%">
                             <div class="media-body ml-2">
                                 <div class="d-flex justify-content-between">
-                                    <h3 th:text="${post.discussionUser.username}"></h3>
-                                    <p th:text="${#dates.format(post.timeStamp, 'MM/dd/yyyy HH:mm')}"></p>
+                                    <a th:href="@{/users/{id}(id=${post.discussionUser.id})}">
+                                        <h3 th:text="${post.discussionUser.username}">username</h3>
+                                    </a>
+                                    <p th:text="${#dates.format(post.timeStamp, 'MM/dd/yyyy HH:mm')}">timestamp</p>
                                 </div>
-                                <p th:text="${post.content}"></p>
+                                <p th:text="${post.content}">post body</p>
                             </div>
                         </div>
 
