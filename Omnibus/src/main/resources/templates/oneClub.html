@@ -22,7 +22,7 @@
                     <div th:each="membership : ${currentClub.memberships}">
                         <div th:if="${membership.applicationUser.equals(loggedUser)}" class="mt-3 mb-3 d-flex flex-wrap">
                             <h4 class="mr-3">Invite your friends:</h4>
-                            <p class="border border-secondary p-1 w-25 text-center" th:text="${currentClub.randomId}">Join Code</p>
+                            <p class="border border-secondary p-1 w-50 text-center" th:text="${currentClub.randomId}">Join Code</p>
                         </div>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
             <div class="card-body d-flex justify-content-center flex-wrap">
                 <div th:if="${currentClub.currentBook}" class="w-100 d-flex justify-content-center flex-wrap mb-5">
                     <h1 class="card-title w-75">Current Book</h1>
-                    <div class="media rounded border border-secondary p-3 w-75">
-                        <img src="/default-book-cover.png" width="20%">
+                    <div class="media rounded border border-secondary p-3 w-75 bg-light">
+                        <img th:src="${currentClub.currentBook.bookImg}" onerror="this.onerror=null; this.src='/default-book-cover.png'" width="20%">
                         <div class="ml-5 text-left w-75">
                             <h2 th:text="${currentClub.currentBook.title}">Book Title</h2>
                             <h5 th:text="${currentClub.currentBook.author}">Book Author</h5>
@@ -49,7 +49,7 @@
                 </div>
 
                 <h1 class="card-title w-75">Club Members</h1>
-                <div class="rounded border border-secondary w-75 d-flex flex-wrap pl-1 pr-1 mb-5">
+                <div class="rounded border border-secondary w-75 d-flex flex-wrap pl-1 pr-1 mb-5 bg-light">
                     <div th:each="member : ${currentClub.memberships}" class="w-50 p-2 mb-2 mt-2">
                         <a th:href="@{/users/{id}(id=${member.applicationUser.id})}">
                             <div class="media btn btn-outline-dark">
@@ -64,9 +64,10 @@
                 </div>
 
                 <h1 class="card-title w-75">Club Details</h1>
-                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3 mb-5" id="addBook">
+
+                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3 mb-5 bg-light" id="addBook">
                     <div class="w-50">
-                        <h3 class="mb-3">Start a New Book</h3>
+                        <h3 class="mb-3">Add a New Book</h3>
                         <form method="POST" action="/book">
                             <div class="form-group">
                                 <label for="title">Title:</label>
@@ -81,6 +82,11 @@
                             <div class="form-group">
                                 <label for="description">Description:</label>
                                 <input name="description" type="text" id="description" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bookImg">Book Image:</label>
+                                <input name="bookImg" type="text" id="bookImg">
                             </div>
 
                             <div class="form-group">
@@ -120,7 +126,7 @@
                         Add a Post
                     </button>
                 </div>
-                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3">
+                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3 bg-light">
                     <!-- https://getbootstrap.com/docs/4.0/components/modal/ -->
 
                     <!-- Modal -->
@@ -137,7 +143,7 @@
                                     <form method="POST" action="/discussion" id="newPost">
                                         <div class="form-group">
                                             <label for="content">Comment:</label>
-                                            <textarea name="content" type="text" id="content" rows="5" maxlength="255"></textarea>
+                                            <textarea class="form-control" name="content" type="text" id="content" rows="5" maxlength="255"></textarea>
                                         </div>
 
                                         <div class="form-group">

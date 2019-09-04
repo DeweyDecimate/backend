@@ -51,16 +51,6 @@ public class BookClubController {
         return new RedirectView("/clubs/" + randomId);
     }
 
-    @GetMapping("/clubs")
-    public String getClub(Principal p, Model m){
-        ApplicationUser currentUser = applicationUserRepository.findByUsername(p.getName());
-        m.addAttribute("principal", p);
-        m.addAttribute("bookclubs", bookClubRepository.findAll());
-        m.addAttribute("loggedUser", currentUser);
-        return "clubs";
-
-    }
-
 
     @GetMapping("/clubs/{randomId}")
     public String getSpecificClub(@PathVariable String randomId, Principal p, Model m){
@@ -85,7 +75,7 @@ public class BookClubController {
     }
 
     //TODO update bookclub information
-    
+
     @PostMapping("/discussion")
     public RedirectView makeDiscussion(String content, Long userId, Long clubId){
         BookClub club = bookClubRepository.getOne(clubId);
