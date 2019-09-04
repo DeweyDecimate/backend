@@ -28,12 +28,12 @@ public class ApplicationUser implements UserDetails {
 
     // ---------------------------- Constructors -------------------------------
 
-    public ApplicationUser(String username, String password, String firstName, String lastName, String userImg) {
+    public ApplicationUser(String username, String password, String firstName, String lastName) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userImg = userImg;
+        this.userImg = "/default-avatar.png";
     }
 
     public ApplicationUser(){}
@@ -100,4 +100,7 @@ public class ApplicationUser implements UserDetails {
         return null;
     }
 
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
 }
