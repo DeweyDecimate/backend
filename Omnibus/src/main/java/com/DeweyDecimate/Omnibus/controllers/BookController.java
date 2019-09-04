@@ -28,7 +28,7 @@ public class BookController {
         ApplicationUser applicationUser = applicationUserRepository.getOne(userId);
         for(Membership m : currentClub.getMemberships()){
             if(m.getApplicationUser().getId() == userId){
-                Book newBook = new Book(title,author,description,bookImg,currentClub, true);
+                Book newBook = new Book(title,author,description,bookImg,currentClub);
                 bookRepository.save(newBook);
                 currentClub.setCurrentBook(newBook);
                 bookClubRepository.save(currentClub);
