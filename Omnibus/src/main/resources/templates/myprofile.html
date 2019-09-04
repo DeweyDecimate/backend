@@ -26,9 +26,11 @@
             <div>
                 <!-- https://getbootstrap.com/docs/4.0/components/modal/ -->
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#avatar">
-                    Update Avatar
-                </button>
+                <div th:if="${viewedUser.username.equals(principal.name)}">
+                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#avatar">
+                        Update Avatar
+                    </button>
+                </div>
 
                 <!-- Modal -->
                 <div class="modal fade" id="avatar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -54,7 +56,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button form="updateImg" type="submit" class="btn btn-dark">Create</button>
+                                <button form="updateImg" type="submit" class="btn btn-dark">Update</button>
                             </div>
                         </div>
                     </div>
@@ -98,7 +100,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button form="newClub" type="submit" class="btn btn-dark">Update</button>
+                                <button form="newClub" type="submit" class="btn btn-dark">Create</button>
                             </div>
                         </div>
                     </div>
