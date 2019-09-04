@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.lang.reflect.Member;
 import java.security.Principal;
 import java.sql.Date;
-import java.util.List;
 
 
 @Controller
@@ -32,9 +29,11 @@ public class BookClubController {
     @PostMapping("/clubs")
     public RedirectView makeClub (String description, String clubName, Principal p){
 //  Create new bookclub
+        String randomId = null;
         if(bookClubRepository.findByClubName(clubName) == null){
             BookClub bc = new BookClub(description, clubName, "/default-book-cover.png");
             bookClubRepository.save(bc);
+            randomId = bc.getRandomId();
 //  new membership
             ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
             Date date = new Date(System.currentTimeMillis());
@@ -46,7 +45,7 @@ public class BookClubController {
         } else{
             System.out.println("This club already exists");
         }
-        return new RedirectView("/clubs");
+        return new RedirectView("/clubs/" + randomId);
     }
 
     @GetMapping("/clubs")
@@ -67,6 +66,7 @@ public class BookClubController {
         m.addAttribute("currentClub", bookClub);
         ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
         m.addAttribute("loggedUser", applicationUser);
+
         return "oneClub";
     }
 
@@ -80,9 +80,6 @@ public class BookClubController {
 
         return new RedirectView("/clubs/" + randomId);
     }
-
-    //TODO update user profile so they can change their picture
-
 
     //TODO update bookclub information
 }

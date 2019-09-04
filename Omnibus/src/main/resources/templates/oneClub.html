@@ -35,7 +35,7 @@
                         <img src="/default-book-cover.png" width="20%">
                         <div class="ml-5 text-left w-75">
                             <h2 th:text="${currentClub.currentBook.title}">Book Title</h2>
-                            <h5 th:text="$[currentClub.currentBook.author}">Book Author</h5>
+                            <h5 th:text="${currentClub.currentBook.author}">Book Author</h5>
                             <p th:text="${currentClub.currentBook.description}">Book Description</p>
                         </div>
                     </div>
