@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 
@@ -25,6 +26,9 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "applicationUser")
     Set<Membership> memberships;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "discussionUser")
+    List<ClubDiscussion> discussions;
 
     // ---------------------------- Constructors -------------------------------
 

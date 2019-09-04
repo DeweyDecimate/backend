@@ -1,6 +1,7 @@
 package com.DeweyDecimate.Omnibus.models;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -26,6 +27,12 @@ public class BookClub {
     @Column(unique = true)
     String randomId;
 
+    public List<ClubDiscussion> getDiscussions() {
+        return discussions;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bookClub")
+    List<ClubDiscussion> discussions;
 
     public BookClub(String description, String clubName, String clubImg) {
 //        this.memberships = memberships;
