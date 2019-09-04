@@ -182,3 +182,6 @@ Our team utilized an agile process. User stories were written and assigned to te
 [MarishaHoza](https://github.com/MarishaHoza), [perezm27](https://github.com/perezm27), [Bomi Bear](https://github.com/bomibear), [trevorjdobson](https://github.com/trevorjdobson)
 
 ## Acknowledgements
+Generating the random string that comes after the club name is from [https://www.baeldung.com/java-random-string
+](//  https://www.baeldung.com/java-random-string
+)
