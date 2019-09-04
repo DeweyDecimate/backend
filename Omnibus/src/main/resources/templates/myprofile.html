@@ -20,8 +20,9 @@
             </h1>
 
         </div>
+
         <div class="w-50 m-3 shadow bg-light rounded border border-secondary">
-            <img th:src="${viewedUser.userImg}" width="40%" class="m-3">
+            <img th:src="${viewedUser.userImg}" onerror="this.onerror=null; this.src='/default-avatar.png'" width="40%" class="m-3">
             <div class="text-left p-5">
                 <h3 th:text="${viewedUser.username}">username</h3>
                 <h5 class="text-muted"><span th:text="${viewedUser.firstName}">first name</span> <span th:text="${viewedUser.lastName}">last name</span></h5>
