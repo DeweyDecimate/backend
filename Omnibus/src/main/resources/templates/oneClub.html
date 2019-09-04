@@ -32,7 +32,7 @@
                 <div th:if="${currentClub.currentBook}" class="w-100 d-flex justify-content-center flex-wrap mb-5">
                     <h1 class="card-title w-75">Current Book</h1>
                     <div class="media rounded border border-secondary p-3 w-75 bg-light">
-                        <img src="/default-book-cover.png" width="20%">
+                        <img th:src="${currentClub.currentBook.bookImg}" onerror="this.onerror=null; this.src='/default-book-cover.png'" width="20%">
                         <div class="ml-5 text-left w-75">
                             <h2 th:text="${currentClub.currentBook.title}">Book Title</h2>
                             <h5 th:text="${currentClub.currentBook.author}">Book Author</h5>
@@ -82,6 +82,11 @@
                             <div class="form-group">
                                 <label for="description">Description:</label>
                                 <input name="description" type="text" id="description" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bookImg">Book Image:</label>
+                                <input name="bookImg" type="text" id="bookImg">
                             </div>
 
                             <div class="form-group">
