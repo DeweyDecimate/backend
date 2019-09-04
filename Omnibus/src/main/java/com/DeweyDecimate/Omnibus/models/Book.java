@@ -15,18 +15,15 @@ public class Book {
     String description;
     String bookImg;
 
-    Boolean isCurrent;
-
     @ManyToOne
     BookClub bookClubId;
 
-    public Book(String title, String author, String description, String bookImg, BookClub bookClubId, Boolean isCurrent) {
+    public Book(String title, String author, String description, String bookImg, BookClub bookClubId) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.bookImg = bookImg;
         this.bookClubId = bookClubId;
-        this.isCurrent = isCurrent;
     }
 
     public Book(){}
@@ -54,13 +51,4 @@ public class Book {
     public BookClub getBookClubId() {
         return bookClubId;
     }
-
-    public Boolean getCurrent() {
-        return isCurrent;
-    }
-
-    public void setCurrent(Boolean current) {
-        isCurrent = current;
-    }
-
 }
