@@ -39,7 +39,9 @@ public class OmnibusApplicationTests {
 				.perform(MockMvcRequestBuilders.get("/"))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("<li><a href=\"/login\">Log In</a></li>")));
+				.andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("<li class=\"nav-item\">\n" +
+						"            <a class=\"nav-link text-light\" href=\"/login\">Log In</a>\n" +
+						"        </li>")));
 	}
 
 	@Test
@@ -56,7 +58,19 @@ public class OmnibusApplicationTests {
 				.perform(MockMvcRequestBuilders.get("/login"))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("<form class=\"form-signin\" method=\"post\" action=\"/login\">")));
+				.andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("<form method=\"POST\" action=\"/login\">\n" +
+						"                        <ul class=\"list-unstyled\">\n" +
+						"                            <li class=\"m-3\">\n" +
+						"                                <label for=\"username\"> Username: </label><input type=\"text\" name=\"username\" id=\"username\" />\n" +
+						"                            </li>\n" +
+						"                            <li class=\"m-3\">\n" +
+						"                                <label for=\"password\">Password: </label><input type=\"password\" name=\"password\" id=\"password\" />\n" +
+						"                            </li>\n" +
+						"                            <li class=\"m-3\">\n" +
+						"                                <input class=\"btn btn-dark btn-lg\" type=\"submit\" />\n" +
+						"                            </li>\n" +
+						"                        </ul>\n" +
+						"                    </form>")));
 	}
 	@Test
 	public void testSignUpRoute_Status200() throws Exception {
@@ -75,5 +89,20 @@ public class OmnibusApplicationTests {
 				.andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("<form method=\"POST\" action=\"/users\">")));
 	}
 
+	@Test
+	public void testError_Status() throws Exception {
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.get("/error"))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().is5xxServerError());
+	}
 
+	@Test
+	public void testError_ContainsString() throws Exception {
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.get("/error"))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().is5xxServerError())
+				.andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("\"status\":999,\"error\":\"None\",\"message\":\"No message available\"")));
+	}
 }
