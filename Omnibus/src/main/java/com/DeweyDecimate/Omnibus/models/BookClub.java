@@ -26,6 +26,9 @@ public class BookClub {
     @Column(unique = true)
     String randomId;
 
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "bookClubId")
+    Book currentBook;
+
 
     public BookClub(String description, String clubName, String clubImg) {
 //        this.memberships = memberships;
@@ -70,6 +73,14 @@ public class BookClub {
 
     public Set<Book> getBooks() {
         return books;
+    }
+
+    public Book getCurrentBook() {
+        return currentBook;
+    }
+
+    public void setCurrentBook(Book currentBook) {
+        this.currentBook = currentBook;
     }
 
     public String getDescription() {

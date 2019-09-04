@@ -31,6 +31,15 @@
         </div>
 
     </div>
+    <div th:if="${currentClub.currentBook}">
+    <p>This is the list of previous books: </p>
+        <div th:each="previousBook : ${currentClub.books}">
+            <p th:text="${previousBook.title}"></p>
+
+        </div>
+
+    <p>This is the current book : <span th:text="${currentClub.currentBook.title}"></span></p>
+    </div>
 
     <div class="container">
         <h1>Add a new book</h1>
