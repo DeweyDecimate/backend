@@ -46,10 +46,10 @@
                     <div th:each="member : ${currentClub.memberships}" class="w-50 p-2 mb-2 mt-2">
                         <a th:href="@{/users/{id}(id=${member.applicationUser.id})}">
                             <div class="media btn btn-outline-dark">
-                                <img th:src="${member.applicationUser.userImg}" alt="user profile picture" width="20%">
+                                <img th:src="${member.applicationUser.userImg}" onerror="this.onerror=null; this.src='/default-avatar.png'" alt="user profile picture" width="20%">
                                 <div class="media-body text-left ml-3">
                                     <h3 th:text="${member.applicationUser.username}">Username</h3>
-                                    <p class="badge badge-dark mb-0">Joined <span th:text="${#dates.format(member.dateJoined, 'MM/dd/yyyy')}"></span></p>
+                                    <p class="mb-0">Joined: <span class="badge badge-dark" th:text="${#dates.format(member.dateJoined, 'MM/dd/yyyy')}"></span></p>
                                 </div>
                             </div>
                         </a>
@@ -57,7 +57,7 @@
                 </div>
 
                 <h1 class="card-title w-75">Club Details</h1>
-                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3">
+                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3 mb-5">
                     <div class="w-50">
                         <h3 class="mb-3">Start a New Book</h3>
                         <form method="POST" action="/book">
@@ -104,8 +104,73 @@
                         </ul>
                     </div>
                 </div>
+
+
+                <div class="w-75 d-flex justify-content-center align-items-center">
+                    <h1 class="card-title">Discussion Board</h1>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-dark ml-3" data-toggle="modal" data-target="#exampleModal">
+                        Add a Post
+                    </button>
+                </div>
+                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3">
+                    <!-- https://getbootstrap.com/docs/4.0/components/modal/ -->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add a Post</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/discussion" id="newPost">
+                                        <div class="form-group">
+                                            <label for="content">Comment:</label>
+                                            <textarea name="content" type="text" id="content" rows="5" maxlength="255"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input name="userId" type="hidden"  th:value="${loggedUser.id}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input name="clubId" type="hidden"  th:value="${currentClub.id}">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button form="newPost" type="submit" class="btn btn-dark">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:if="${currentClub.discussions.size() > 0}" class="d-flex justify-content-center flex-wrap">
+                        <div th:each="post : ${currentClub.discussions}" class="media text-left rounded border border-secondary m-3 w-100 p-3">
+                            <img th:src="${post.discussionUser.userImg}" onerror="this.onerror=null; this.src='/default-avatar.png'" alt="user profile picture" width="15%">
+                            <div class="media-body ml-2">
+                                <div class="d-flex justify-content-between">
+                                    <h3 th:text="${post.discussionUser.username}"></h3>
+                                    <p th:text="${#dates.format(post.timeStamp, 'MM/dd/yyyy HH:mm')}"></p>
+                                </div>
+                                <p th:text="${post.content}"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </main>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
