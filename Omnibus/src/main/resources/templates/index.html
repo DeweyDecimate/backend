@@ -24,16 +24,14 @@
                     </ul>
                 </div>
             </div>
-            <div class="w-75" th:unless="${loggedUser}">
+            <div class="w-75" th:unless="${principal}">
                 <a class="m-4 btn btn-dark btn-lg" href="/login" role="button">Log In</a>
                 <a class="m-4 btn btn-dark btn-lg" href="/signup">Sign Up</a>
             </div>
-            <div class="w-75" th:if="${loggedUser}">
+            <div class="w-75" th:if="${principal}">
                 <a class="m-4 btn btn-dark btn-lg" href="/myprofile" role="button">My Profile</a>
             </div>
         </div>
-
-
     </main>
 </body>
 </html>

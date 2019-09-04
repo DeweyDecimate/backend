@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.lang.reflect.Member;
 import java.security.Principal;
 import java.sql.Date;
-import java.util.List;
 
 
 @Controller
@@ -29,12 +26,17 @@ public class BookClubController {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    ClubDiscussionRepository clubDiscussionRepository;
+
     @PostMapping("/clubs")
     public RedirectView makeClub (String description, String clubName, Principal p){
 //  Create new bookclub
+        String randomId = null;
         if(bookClubRepository.findByClubName(clubName) == null){
             BookClub bc = new BookClub(description, clubName, "/default-book-cover.png");
             bookClubRepository.save(bc);
+            randomId = bc.getRandomId();
 //  new membership
             ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
             Date date = new Date(System.currentTimeMillis());
@@ -46,7 +48,7 @@ public class BookClubController {
         } else{
             System.out.println("This club already exists");
         }
-        return new RedirectView("/clubs");
+        return new RedirectView("/clubs/" + randomId);
     }
 
     @GetMapping("/clubs")
@@ -67,6 +69,7 @@ public class BookClubController {
         m.addAttribute("currentClub", bookClub);
         ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
         m.addAttribute("loggedUser", applicationUser);
+
         return "oneClub";
     }
 
@@ -81,8 +84,22 @@ public class BookClubController {
         return new RedirectView("/clubs/" + randomId);
     }
 
-    //TODO update user profile so they can change their picture
-
-
     //TODO update bookclub information
+    @GetMapping("/discussion/{randomId}")
+    public String getClubDiscussion(@PathVariable String randomId, Principal p, Model m){
+        BookClub bookClub = bookClubRepository.findByRandomId(randomId);
+        m.addAttribute("principal", p);
+        m.addAttribute("currentClub", bookClub);
+        ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
+        m.addAttribute("loggedUser", applicationUser);
+        return "makepost";
+    }
+    @PostMapping("/discussion")
+    public RedirectView makeDiscussion(String content, Long userId, Long clubId){
+        BookClub club = bookClubRepository.getOne(clubId);
+        ApplicationUser user = applicationUserRepository.getOne(userId);
+        ClubDiscussion discussion = new ClubDiscussion(content,user,club);
+        clubDiscussionRepository.save(discussion);
+        return new RedirectView("/clubs/" + club.getRandomId());
+    }
 }
