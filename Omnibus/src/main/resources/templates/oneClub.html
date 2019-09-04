@@ -3,63 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <title>One Club</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
-    <p th:text="${loggedUser.username}"></p>
-    <p th:text="${currentClub.randomId}"></p>
-    <div th:if="${currentClub.books.size()>0}">
-        <div th:each="book : ${currentClub.books}">
-            <p th:text="${book.title}"></p>
-            <div class="container">
-                <form method="POST" action="/book">
+<body class="text-center">
+<header>
+    <nav th:replace="fragments/nav :: nav"></nav>
+</header>
+    <main class="mt-5 d-flex p-3 justify-content-center flex-wrap">
+        <div class="w-75 m-3 shadow bg-light rounded border border-secondary p-3 card">
 
-                    <div class="form-group">
-                        <input name="bookClubId" type="hidden"  th:value="${currentClub.id}">
-                    </div>
 
-                    <div class="form-group">
-                        <input name="userId" type="hidden"  th:value="${loggedUser.id}">
+            <div class="card-header media">
+                <img src="/feature.jpg" width="20%" alt="default club image">
+                <div class="ml-5 text-left w-75">
+                    <h1 class="display-3" th:text="${currentClub.clubName}">Club Name</h1>
+                    <h3 th:text="${currentClub.description}">Club Description</h3>
+                    <div th:each="membership : ${currentClub.memberships}">
+                        <div th:if="${membership.applicationUser.equals(loggedUser)}" class="mt-3 mb-3 d-flex flex-wrap">
+                            <h4 class="mr-3">Invite your friends:</h4>
+                            <p class="border border-secondary p-1 w-25 text-center" th:text="${currentClub.randomId}">Join Code</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input name="bookId" type="hidden"  th:value="${currentClub.books[0].id}">
-                    </div>
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-primary btn-md">Delete</button>
-                </form>
+                </div>
             </div>
 
+            <div class="card-body d-flex justify-content-center flex-wrap">
+                <div th:if="${currentClub.currentBook}" class="w-100 d-flex justify-content-center flex-wrap mb-5">
+                    <h1 class="card-title w-75">Current Book</h1>
+                    <div class="media rounded border border-secondary p-3 w-75">
+                        <img src="/default-book-cover.png" width="20%">
+                        <div class="ml-5 text-left w-75">
+                            <h2 th:text="${currentClub.currentBook.title}">Book Title</h2>
+                            <h5 th:text="$[currentClub.currentBook.author}">Book Author</h5>
+                            <p th:text="${currentClub.currentBook.description}">Book Description</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="card-title w-75">Club Members</h1>
+                <div class="rounded border border-secondary w-75 d-flex flex-wrap pl-1 pr-1 mb-5">
+                    <div th:each="member : ${currentClub.memberships}" class="w-50 p-2 mb-2 mt-2">
+                        <a th:href="@{/users/{id}(id=${member.applicationUser.id})}">
+                            <div class="media btn btn-outline-dark">
+                                <img th:src="${member.applicationUser.userImg}" alt="user profile picture" width="20%">
+                                <div class="media-body text-left ml-3">
+                                    <h3 th:text="${member.applicationUser.username}">Username</h3>
+                                    <p class="badge badge-dark mb-0">Joined <span th:text="${#dates.format(member.dateJoined, 'MM/dd/yyyy')}"></span></p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <h1 class="card-title w-75">Club Details</h1>
+                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3">
+                    <div class="w-50">
+                        <h3 class="mb-3">Start a New Book</h3>
+                        <form method="POST" action="/book">
+                            <div class="form-group">
+                                <label for="title">Title:</label>
+                                <input name="title" type="text" id="title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="author">Author:</label>
+                                <input name="author" type="text" id="author" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <input name="description" type="text" id="description" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input name="bookClubId" type="hidden" id="bookClubId" th:value="${currentClub.id}">
+                            </div>
+
+                            <div class="form-group">
+                                <input name="userId" type="hidden" id="userId" th:value="${loggedUser.id}">
+                            </div>
+
+                            <button type="submit" class="btn btn-dark btn-md">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="w-50 pl-4 pr-4">
+                        <h3 class="mb-3">Previous Books</h3>
+                        <ul th:if="${currentClub.books.size()>0}" class="list-group d-flex">
+                            <li class="list-group-item p-1" th:each="book : ${currentClub.books}">
+                                <form method="POST" action="/book" class="d-flex justify-content-between">
+                                    <h5 class="ml-2 mt-2" th:text="${book.title}"></h5>
+                                    <input name="bookClubId" type="hidden"  th:value="${currentClub.id}">
+                                    <input name="userId" type="hidden"  th:value="${loggedUser.id}">
+                                    <input name="bookId" type="hidden"  th:value="${book.id}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-dark btn-md">Delete</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-
-    </div>
-
-    <div class="container">
-        <h1>Add a new book</h1>
-        <form method="POST" action="/book">
-            <div class="form-group">
-                <label for="title">Title:</label>
-                <input name="title" type="text" id="title" required>
-            </div>
-
-            <div class="form-group">
-                <label for="author">Author:</label>
-                <input name="author" type="text" id="author" required>
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <input name="description" type="text" id="description" required>
-            </div>
-
-            <div class="form-group">
-                <input name="bookClubId" type="hidden" id="bookClubId" th:value="${currentClub.id}">
-            </div>
-
-            <div class="form-group">
-                <input name="userId" type="hidden" id="userId" th:value="${loggedUser.id}">
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-md">Submit</button>
-        </form>
-    </div>
+    </main>
 </body>
 </html>

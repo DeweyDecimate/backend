@@ -22,7 +22,7 @@ public class HomeController {
     @GetMapping("/signup")
     public String getSignup(Principal p, Model m) {
         m.addAttribute("principal", p);
-        
+
         return "signup";
     }
 

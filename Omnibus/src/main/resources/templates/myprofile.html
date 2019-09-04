@@ -20,7 +20,7 @@
             </h1>
 
         </div>
-        <div class="w-50 m-3 shadow bg-light rounded">
+        <div class="w-50 m-3 shadow bg-light rounded border border-secondary">
             <img th:src="${viewedUser.userImg}" width="40%" class="m-3">
             <div class="text-left p-5">
                 <h3 th:text="${viewedUser.username}">username</h3>
@@ -29,13 +29,15 @@
 
         </div>
 
-        <div class="w-25 m-3 d-flex justify-content-center flex-wrap align-content-start shadow bg-light rounded">
-            <a class="m-4 btn btn-dark btn-lg w-75" href="/clubs" role="button">Start a Club</a>
-            <form method="POST" action="/clubs/membership" class="form-inline">
-                <label class="sr-only" for="randomId">Club ID</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="randomId" name="randomId" placeholder="Club ID">
-                <button type="submit" class="btn btn-dark mb-2">Join</button>
-            </form>
+        <div class="w-25 m-3 d-flex justify-content-center flex-wrap align-content-start shadow bg-light rounded border border-secondary">
+            <div th:if="${viewedUser.username.equals(principal.name)}" class="w-100 d-flex justify-content-center flex-wrap">
+                <a class="m-4 btn btn-dark btn-lg w-75" href="/clubs" role="button">Start a Club</a>
+                <form method="POST" action="/clubs/membership" class="form-inline">
+                    <label class="sr-only" for="randomId">Club ID</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="randomId" name="randomId" placeholder="Club ID">
+                    <button type="submit" class="btn btn-dark mb-2">Join</button>
+                </form>
+            </div>
             <div class="p-4 w-100 text-left">
                 <h2 class="text-center"><span th:if="${viewedUser.username.equals(principal.name)}">My</span><span th:unless="${viewedUser.username.equals(principal.name)}" th:text="${viewedUser.username}"></span><span th:unless="${viewedUser.username.equals(principal.name)}">'s</span> Clubs</h2>
                 <ul th:each="club : ${viewedUser.memberships}" class="list-unstyled pt-2 pl-3 pr-3">
