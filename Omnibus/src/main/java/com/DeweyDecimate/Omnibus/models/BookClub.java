@@ -27,12 +27,11 @@ public class BookClub {
     @Column(unique = true)
     String randomId;
 
-    public List<ClubDiscussion> getDiscussions() {
-        return discussions;
-    }
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "bookClub")
     List<ClubDiscussion> discussions;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "bookClubId")
+    Book currentBook;
 
     public BookClub(String description, String clubName, String clubImg) {
 //        this.memberships = memberships;
@@ -62,6 +61,9 @@ public class BookClub {
         System.out.println(generatedString);
         return clubName + generatedString;
     }
+    public List<ClubDiscussion> getDiscussions() {
+        return discussions;
+    }
 
     public void addBooks(Book book) {
         this.books.add(book);
@@ -77,6 +79,14 @@ public class BookClub {
 
     public Set<Book> getBooks() {
         return books;
+    }
+
+    public Book getCurrentBook() {
+        return currentBook;
+    }
+
+    public void setCurrentBook(Book currentBook) {
+        this.currentBook = currentBook;
     }
 
     public String getDescription() {
