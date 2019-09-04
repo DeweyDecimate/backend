@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="text-center">
+    <header>
+        <nav th:replace="fragments/nav :: nav"></nav>
+    </header>
+    <main class="mt-5">
+        <img src="/hero.jpg" width="100%">
+        <h1 class="display-2">Omnibus</h1>
+        <div class="d-flex justify-content-center flex-wrap">
+            <div class="card w-50">
+                <div class="card-body text-left">
+                    <h4 class="card-title">om·ni·bus</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">/ˈämnəˌbəs/</h6>
+                    <p><i>noun</i>: omnibus; <i>plural noun</i>: omnibuses</p>
+                    <ul>
+                        <li>a volume containing several novels or other items previously published separately.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w-75" th:unless="${principal}">
+                <a class="m-4 btn btn-dark btn-lg" href="/login" role="button">Log In</a>
+                <a class="m-4 btn btn-dark btn-lg" href="/signup">Sign Up</a>
+            </div>
+            <div class="w-75" th:if="${principal}">
+                <a class="m-4 btn btn-dark btn-lg" href="/myprofile" role="button">My Profile</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

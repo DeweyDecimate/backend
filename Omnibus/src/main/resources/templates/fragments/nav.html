@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<nav th:fragment="nav">
+    <ul class="nav navbar fixed-top navbar-dark bg-dark">
+
+        <li class="nav-item mr-auto">
+            <a class="nav-link text-light" href="/">Omnibus</a>
+        </li>
+
+        <!--        NOT logged in          -->
+        <li class="nav-item" th:unless="${principal}">
+            <a class="nav-link text-light" href="/login">Log In</a>
+        </li>
+        <li class="nav-item" th:unless="${principal}">
+            <a class="nav-link text-light" href="/signup">Sign Up</a>
+        </li>
+
+        <!--        logged in          -->
+        <li class="nav-item" th:if="${principal}">
+            <a class="nav-link text-light" href="/myprofile">My Profile</a>
+        </li>
+        <li class="nav-item" th:if="${principal}">
+            <a class="nav-link text-light" href="/logout">Log Out <span th:text="${principal.name}">username</span></a>
+        </li>
+    </ul>
+</nav>
+
+
+
+</body>
+</html>

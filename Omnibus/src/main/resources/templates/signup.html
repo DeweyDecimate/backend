@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="text-center">
+    <div class="container">
+        <header>
+            <nav th:replace="fragments/nav :: nav"></nav>
+        </header>
+        <main class="mt-5 p-3">
+            <h1 class="display-3">Omnibus</h1>
+            <div class="d-flex justify-content-center">
+                <div class="w-50 p-3 card">
+                    <h1 class="display-5">Sign up for an account!</h1>
+                    <form method="POST" action="/users">
+                        <ul class="list-unstyled">
+                            <li class="m-3">
+                                <label for="username"> Username: </label><input type="text" name="username" id="username" />
+                            </li>
+                            <li class="m-3">
+                                <label for="password"> Password: </label><input type="password" name="password" id="password" />
+                            </li>
+                            <li class="m-3">
+                                <label for="firstname"> First Name: </label><input type="text" name="firstname" id="firstname" />
+                            </li>
+                            <li class="m-3">
+                                <label for="lastname"> Last Name: </label><input type="text" name="lastname" id="lastname" />
+                            </li>
+                            <li class="m-3">
+                                <button type="submit" class="btn btn-dark btn-md">Submit</button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

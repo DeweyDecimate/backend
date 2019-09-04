@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="text-center">
+    <header>
+        <nav th:replace="fragments/nav :: nav"></nav>
+    </header>
+    <main class="mt-5 d-flex p-3 justify-content-center flex-wrap">
+        <div class="w-100">
+            <h1>
+                <span th:if="${viewedUser.username.equals(principal.name)}">My</span>
+                <span th:unless="${viewedUser.username.equals(principal.name)}" th:text="${viewedUser.username}"></span>
+                <span th:unless="${viewedUser.username.equals(principal.name)}">'s</span>
+                 Profile
+            </h1>
+
+        </div>
+
+        <div class="w-50 m-3 shadow bg-light rounded border border-secondary">
+            <img th:src="${viewedUser.userImg}" onerror="this.onerror=null; this.src='/default-avatar.png'" width="40%" class="m-3">
+            <div>
+                <!-- https://getbootstrap.com/docs/4.0/components/modal/ -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#avatar">
+                    Update Avatar
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="avatar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Update Your Profile Picture</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/users/pic" id="updateImg">
+                                    <div class="form-group">
+                                        <input name="userId" type="hidden"  th:value="${loggedUser.id}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Image URL: </label>
+                                        <input name="imageURL" type="text" maxlength="255">
+                                    </div>
+                                    <input type="hidden" name="_method" value="PUT">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button form="updateImg" type="submit" class="btn btn-dark">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="text-left p-5">
+                <h3 th:text="${viewedUser.username}">username</h3>
+                <h5 class="text-muted"><span th:text="${viewedUser.firstName}">first name</span> <span th:text="${viewedUser.lastName}">last name</span></h5>
+            </div>
+
+        </div>
+
+        <div class="w-25 m-3 d-flex justify-content-center flex-wrap align-content-start shadow bg-light rounded border border-secondary">
+            <div th:if="${viewedUser.username.equals(principal.name)}" class="w-100 d-flex justify-content-center flex-wrap">
+                <a class="m-4 btn btn-dark btn-lg w-75" href="/clubs" role="button" data-toggle="modal" data-target="#startClub">Start a New Club</a>
+
+                <!--- Modal --->
+                <div class="modal fade" id="startClub" tabindex="-1" role="dialog" aria-labelledby="startClubLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="startClubLabel">Start a New Club!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/clubs" id="newClub">
+                                    <div class="form-group">
+                                        <label for="description">Club Description:</label>
+                                        <input name="description" type="text" id="description">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="clubName">Club Name:</label>
+                                        <input name="clubName" type="text" id="clubName">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button form="newClub" type="submit" class="btn btn-dark">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" action="/clubs/membership" class="form-inline">
+                    <label class="sr-only" for="randomId">Club ID</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="randomId" name="randomId" placeholder="Club ID">
+                    <button type="submit" class="btn btn-dark mb-2">Join</button>
+                </form>
+            </div>
+            <div class="p-4 w-100 text-left">
+                <h2 class="text-center"><span th:if="${viewedUser.username.equals(principal.name)}">My</span><span th:unless="${viewedUser.username.equals(principal.name)}" th:text="${viewedUser.username}"></span><span th:unless="${viewedUser.username.equals(principal.name)}">'s</span> Clubs</h2>
+                <ul th:each="club : ${viewedUser.memberships}" class="list-unstyled pt-2 pl-3 pr-3">
+                   <a th:href="@{/clubs/{id}(id=${club.bookClubId.randomId})}" class="btn btn-outline-dark w-100"><li th:text="${club.bookClubId.clubName}">Club Name</li></a>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
