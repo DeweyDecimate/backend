@@ -20,9 +20,10 @@
                     <h1 class="display-3" th:text="${currentClub.clubName}">Club Name</h1>
                     <h3 th:text="${currentClub.description}">Club Description</h3>
                     <div th:each="membership : ${currentClub.memberships}">
-                        <div th:if="${membership.applicationUser.equals(loggedUser)}" class="mt-3 mb-3 d-flex flex-wrap">
+                        <div th:if="${membership.applicationUser.equals(loggedUser)}" class="align-items-start mt-3 mb-3 d-flex flex-wrap">
                             <h4 class="mr-3">Invite your friends:</h4>
-                            <p class="border border-secondary p-1 w-50 text-center" th:text="${currentClub.randomId}">Join Code</p>
+                            <p id="join-code" class="border border-secondary p-1 w-50 text-center" th:text="${currentClub.randomId}">Join Code</p>
+                            <button class="p-1 ml-3 btn btn-dark" onclick="copyToClipboard('#join-code')">Copy Code</button>
                         </div>
                     </div>
                 </div>
@@ -184,6 +185,15 @@
             </div>
         </div>
     </main>
+<script>
+    function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
