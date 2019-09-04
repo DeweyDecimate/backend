@@ -44,6 +44,9 @@ public class BookController {
         for(Membership m : currentClub.getMemberships()){
             if(m.getApplicationUser().getId() == userId){
                 Book deleteBook = bookRepository.getOne(bookId);
+                if(currentClub.getCurrentBook().equals(deleteBook)){
+                    currentClub.setCurrentBook(null);
+                }
                 bookRepository.delete(deleteBook);
             }
         }

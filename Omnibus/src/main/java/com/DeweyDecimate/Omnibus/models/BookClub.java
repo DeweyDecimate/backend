@@ -30,7 +30,7 @@ public class BookClub {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "bookClub")
     List<ClubDiscussion> discussions;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "bookClubId")
+    @OneToOne
     Book currentBook;
 
     public BookClub(String description, String clubName, String clubImg) {
@@ -58,8 +58,7 @@ public class BookClub {
         }
         String generatedString = buffer.toString();
 
-        System.out.println(generatedString);
-        return clubName + generatedString;
+        return clubName.replaceAll(" ", "") + generatedString;
     }
     public List<ClubDiscussion> getDiscussions() {
         return discussions;
