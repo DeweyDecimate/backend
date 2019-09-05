@@ -29,8 +29,8 @@ As Developers, we wanted to create an application where users can sign up create
 
 The Omnibus backend will host all the endpoints that will do the following:
 
-- create, read, update and delete a book club
-- create, read, update and delete a book from a club
+- create and read a book club
+- create, read, and delete a book from a club
 - create and read members of a club
 
 ## Scope
@@ -40,24 +40,28 @@ _IN_ - the Omnibus backend will
 - provide a registration feature for users to create an account
 - provide a login feature for returning users to sign back in
 - provide a feature for a user to join a book club
-- provide a feature for a user to add, update or remove a book club
-- provide a feature for a user to add, update or remove a book to a book club
+- provide a feature for a user to add a book club
+- provide a feature for a user to add or remove a book to a book club
 - display a list of the clubs
 - display all the members of a club
-- display books read in each club
+- display a list of current and previous books in each club
 
 _OUT_ - the Omnibus will not
 
 - allow CRUD operations for users who are not logged in
-- allow display information specific to a club such as the list of members or books for that club without being a memeber.
+- allow display information specific to a club such as the list of members or books for that club without proper authorization and authentication.
 
 ## MVP
 
 Users will be able to register for an account and sign in. They can explore other clubs, see who is in those clubs and see what they're reading. If they'd like, they can create a club and they can add a book to that club. They can send their friends a specific club ID, and their friends can join the same club.
 
 ## Stretch Goals
+- [ ] As a developer, I want to connect with the Google Books API to pull book data easily and ensure accurate information 
+- [x] As a user, I want to be able to post in a group discussion board about the book we are reading
+- [x] As a user, I can update my account profile image
+- [ ] As a user, I want to display how many books I’ve read in all my book clubs on my profile so that I can show off to my friends
+- [x] As a user, I should be able to view a list of previous books my club has finished
 
-- club members can discuss the book they're reading
 
 ## Dependencies
 
@@ -135,26 +139,11 @@ This is where a user can log out of Omnibus.
 ---
 
 ```
-/clubs
-```
-
-This route allows a user to create a new club and will redirect the user to `/clubs/{randomId}` afterwards.
-
----
-
-```
 /clubs/{randomId}
 ```
 
 This will take a user to a specific club profile where they can see the list of members and books.
 
----
-
-```
-/clubs/membership
-```
-
-This lets a user join a specific club. They are then redirected to the book club they joined.
 
 ---
 
@@ -172,13 +161,6 @@ This allows a user to see their profile.
 
 This allows a user to see other users' profile.
 
----
-
-```
-/users/
-```
-
-This adds a user and redirects to `/myprofile` afterwards.
 
 ---
 
