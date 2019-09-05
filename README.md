@@ -229,5 +229,4 @@ Some of the challenges we faced were creating the proper relationship between ou
 
 ## Acknowledgements
 
-Generating the random string that comes after the club name is from [https://www.baeldung.com/java-random-string
-](https://www.baeldung.com/java-random-string)
+Generating the random string that comes after the club name is from [Here](https://www.baeldung.com/java-random-string)
