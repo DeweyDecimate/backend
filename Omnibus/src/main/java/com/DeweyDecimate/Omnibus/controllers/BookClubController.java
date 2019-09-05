@@ -25,9 +25,6 @@ public class BookClubController {
     MembershipRepository membershipRepository;
 
     @Autowired
-    BookRepository bookRepository;
-
-    @Autowired
     ClubDiscussionRepository clubDiscussionRepository;
 
     @PostMapping("/clubs")
@@ -89,10 +86,10 @@ public class BookClubController {
         return new RedirectView("/myprofile");
     }
 
-    @PostMapping("/discussion")
-    public RedirectView makeDiscussion(String content, Long userId, Long clubId){
+    @PostMapping("/discussion/{clubId}")
+    public RedirectView makeDiscussion(String content, @PathVariable long clubId, Principal p){
         BookClub club = bookClubRepository.getOne(clubId);
-        ApplicationUser user = applicationUserRepository.getOne(userId);
+        ApplicationUser user = applicationUserRepository.findByUsername(p.getName());
         ClubDiscussion discussion = new ClubDiscussion(content,user,club);
         clubDiscussionRepository.save(discussion);
         return new RedirectView("/clubs/" + club.getRandomId());

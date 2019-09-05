@@ -45,9 +45,6 @@
                             <div class="modal-body">
                                 <form method="POST" action="/users/pic" id="updateImg">
                                     <div class="form-group">
-                                        <input name="userId" type="hidden"  th:value="${loggedUser.id}">
-                                    </div>
-                                    <div class="form-group">
                                         <label>Image URL: </label>
                                         <input name="imageURL" type="text" maxlength="255">
                                     </div>
