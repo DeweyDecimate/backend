@@ -215,6 +215,10 @@ Some of the challenges we faced were creating the proper relationship between ou
 
 ---
 
+## [Deployed Site](http://omnibus2-env.ahat3y67sm.us-east-1.elasticbeanstalk.com/)
+
+---
+
 ## Acknowledgements
 Style was implemented with [Bootstrap](https://getbootstrap.com/).
 Generating the random string that comes after the club name is from [here](https://www.baeldung.com/java-random-string)
