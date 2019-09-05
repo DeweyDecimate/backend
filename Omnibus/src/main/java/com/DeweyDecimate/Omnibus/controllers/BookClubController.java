@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.sql.Date;
+import java.util.List;
 
 
 @Controller
@@ -66,6 +67,11 @@ public class BookClubController {
 
     @PostMapping("/clubs/membership")
     public RedirectView joinClub(String randomId, Principal p, Model m){
+        List<BookClub> allClubs = bookClubRepository.findAll();
+        if(!allClubs.contains(randomId)){
+            
+            return new RedirectView("/myprofile");
+        }
         BookClub bookClub = bookClubRepository.findByRandomId(randomId);
         ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
         Membership membership = new Membership(applicationUser, bookClub, new Date(System.currentTimeMillis()));
