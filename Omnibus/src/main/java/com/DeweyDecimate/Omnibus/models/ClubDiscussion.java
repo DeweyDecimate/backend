@@ -1,7 +1,6 @@
 package com.DeweyDecimate.Omnibus.models;
 
 import javax.persistence.*;
-import java.awt.print.Book;
 import java.util.Date;
 
 @Entity
