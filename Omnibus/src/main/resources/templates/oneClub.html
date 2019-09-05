@@ -69,7 +69,7 @@
                 <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3 mb-5 bg-light" id="addBook">
                     <div class="w-50">
                         <h3 class="mb-3">Add a New Book</h3>
-                        <form method="POST" action="/book">
+                        <form method="POST" th:action="${'/book/' + currentClub.id}">
                             <div class="form-group">
                                 <label for="title">Title:</label>
                                 <input name="title" type="text" id="title" required>
@@ -90,14 +90,6 @@
                                 <input name="bookImg" type="text" id="bookImg">
                             </div>
 
-                            <div class="form-group">
-                                <input name="bookClubId" type="hidden" id="bookClubId" th:value="${currentClub.id}">
-                            </div>
-
-                            <div class="form-group">
-                                <input name="userId" type="hidden" id="userId" th:value="${loggedUser.id}">
-                            </div>
-
                             <button type="submit" class="btn btn-dark btn-md">Submit</button>
                         </form>
                     </div>
@@ -106,10 +98,8 @@
                         <h3 class="mb-3">Previous Books</h3>
                         <ul th:if="${currentClub.books.size()>0}" class="list-group d-flex">
                             <li class="list-group-item p-1" th:each="book : ${currentClub.books}">
-                                <form method="POST" action="/book" class="d-flex justify-content-between">
+                                <form method="POST" th:action="${'/book/' + currentClub.id}" class="d-flex justify-content-between">
                                     <h5 class="ml-2 mt-2" th:text="${book.title}"></h5>
-                                    <input name="bookClubId" type="hidden"  th:value="${currentClub.id}">
-                                    <input name="userId" type="hidden"  th:value="${loggedUser.id}">
                                     <input name="bookId" type="hidden"  th:value="${book.id}">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-dark btn-md">Delete</button>
@@ -141,18 +131,10 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="/discussion" id="newPost">
+                                    <form method="POST" th:action="${'/discussion/' + currentClub.id}" id="newPost">
                                         <div class="form-group">
                                             <label for="content">Comment:</label>
                                             <textarea class="form-control" name="content" type="text" id="content" rows="5" maxlength="255" required></textarea>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input name="userId" type="hidden"  th:value="${loggedUser.id}">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input name="clubId" type="hidden"  th:value="${currentClub.id}">
                                         </div>
                                     </form>
                                 </div>
