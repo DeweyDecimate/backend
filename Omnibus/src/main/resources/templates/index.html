@@ -45,10 +45,10 @@
                                 <form method="POST" action="/login" id="loginForm">
                                     <ul class="list-unstyled">
                                         <li class="m-3">
-                                            <label for="username">Username: </label><input type="text" name="username" id="username" />
+                                            <label for="username">Username: </label><input type="text" name="username" id="username" required/>
                                         </li>
                                         <li class="m-3">
-                                            <label for="password">Password: </label><input type="password" name="password" id="password" />
+                                            <label for="password">Password: </label><input type="password" name="password" id="password" required/>
                                         </li>
                                         <li class="m-3">
                                             <input class="btn btn-dark btn-lg" type="submit" />
@@ -80,16 +80,16 @@
                                 <form method="POST" action="/users">
                                     <ul class="list-unstyled">
                                         <li class="m-3">
-                                            <label for="username"> Username: </label><input type="text" name="username" id="newUsername" />
+                                            <label for="username"> Username: </label><input type="text" name="username" id="newUsername" required/>
                                         </li>
                                         <li class="m-3">
-                                            <label for="password"> Password: </label><input type="password" name="password" id="newPassword" />
+                                            <label for="password"> Password: </label><input type="password" name="password" id="newPassword" required/>
                                         </li>
                                         <li class="m-3">
-                                            <label for="newFirstname"> First Name: </label><input type="text" name="firstname" id="newFirstname" />
+                                            <label for="newFirstname"> First Name: </label><input type="text" name="firstname" id="newFirstname" required/>
                                         </li>
                                         <li class="m-3">
-                                            <label for="newLastname"> Last Name: </label><input type="text" name="lastname" id="newLastname" />
+                                            <label for="newLastname"> Last Name: </label><input type="text" name="lastname" id="newLastname" required/>
                                         </li>
                                         <li class="m-3">
                                             <button type="submit" class="btn btn-dark btn-md">Submit</button>
