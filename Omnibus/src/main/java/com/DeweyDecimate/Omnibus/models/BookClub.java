@@ -34,8 +34,6 @@ public class BookClub {
     Book currentBook;
 
     public BookClub(String description, String clubName, String clubImg) {
-//        this.memberships = memberships;
-//        this.books = books;
         this.description = description;
         this.clubName = clubName;
         this.clubImg = clubImg;
@@ -45,7 +43,7 @@ public class BookClub {
     public BookClub(){}
 
 //  https://www.baeldung.com/java-random-string
-    public static  String generateRandomId(String clubName){
+    public static String generateRandomId(String clubName){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
