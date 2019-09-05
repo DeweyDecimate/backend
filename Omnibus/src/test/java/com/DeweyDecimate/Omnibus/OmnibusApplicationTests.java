@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.junit.Assert.*;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({IntegrationTests.class, ApplicationUserTest.class, BookClubTest.class, MembershipTest.class, ClubDiscussionTest.class})
+@Suite.SuiteClasses({IntegrationTests.class, ApplicationUserTest.class, BookClubTest.class, ClubDiscussionTest.class})
 @SpringBootTest
 @AutoConfigureMockMvc
 public class OmnibusApplicationTests {
