@@ -1,4 +1,4 @@
-# Omnibus Backend
+# Omnibus
 
 Omnibus is a full stack CRUD book club application. Users can join a book club, create a book club, add a book to the club, and see other members of the club.
 
@@ -16,14 +16,14 @@ Omnibus is a full stack CRUD book club application. Users can join a book club, 
 [Database Schema](#database-schema)<br />
 [Route Endpoints](#route-endpoints)<br />
 [Work Schema](#work-flow)<br />
-[Team Members](#Team-Members)<br />
+[Team Members](#team-members)<br />
 [Acknowledgements](#acknowledgements)<br />
 
 ---
 
 ## Introduction
 
-This is the backend to Omnibus and contains code for the server, database and route endpoints.
+As Developers, we wanted to create an application where users can sign up create a Book Club and share it with their friends.
 
 ## Vision
 
@@ -49,7 +49,7 @@ _IN_ - the Omnibus backend will
 _OUT_ - the Omnibus will not
 
 - allow CRUD operations for users who are not logged in
-- allow display information specific to a club such as the list of members or books for that club
+- allow display information specific to a club such as the list of members or books for that club without being a memeber.
 
 ## MVP
 
@@ -192,9 +192,40 @@ This is a post and delete route. It allows a user to add a book. They are then r
 
 Our team utilized an agile process. User stories were written and assigned to team members who wanted to complete them. Each branch is a feature and is for a specific user story. When a feature is completed and pushed, someone who did not write the code will go over the code and merge the pull request. Features are first merged to the dev branch. Once everything is working and up to our satisfaction, dev is then merged into master.
 
-## Team Members
+## User Stories
+- As a user, I should be able to create a new account   
+Time Estimate: by the end of Day 1 (4-6 hours)
+- As a user, I should be able to login with newly created credentials, and log out  
+Time Estimate: by the end of Day 1 (0.5 hour)
+- As a user, I should be able to create a new book club.  
+Time Estimate: by the end of Day 2 (3-4 hours)
+- As a user, I should be able to “share access to newly created book club”  
+Time Estimate: by the end of Day 2 (1 hour)
+- As a user, I should be able to add a “current book” to the book club  
+Time Estimate: by the end of Day 2 (3 hours)
+- As a developer, I want my website to require a login  
+Time Estimate: by the end of Day 3 (1 hour)
+- As a developer, I want to store passwords securely (not in plain text)  
+Time Estimate: by the end of Day 1 (0.25 hour)
+- As a developer, I want to make sure that book clubs have a unique code (randomly generated)  
+Time Estimate: by the end of Day 2 (1 hour)
+- As a developer, I want to know which users and which books are in a book club  
+Time Estimate: by the end of Day 3 (2 hours)
 
-[MarishaHoza](https://github.com/MarishaHoza), [perezm27](https://github.com/perezm27), [Bomi Bear](https://github.com/bomibear), [trevorjdobson](https://github.com/trevorjdobson)
+## Challenges
+Some of the challenges we faced were creating the proper relationship between our tables and implementing some of our stretch goals. Once we fully understood the relationships we wanted to create everything went pretty smoothly. Testing also became slightly complex, but nothing unmanagable. 
+
+## Wins
+- Prepping on Friday to set us up on Tuesday
+- Completion of MVP by Wednesday
+- Successful Deployment
+- Our Team
+
+## Team Members
+[MarishaHoza](https://github.com/MarishaHoza)  
+[perezm27](https://github.com/perezm27)  
+[Bomi Bear](https://github.com/bomibear)  
+[trevorjdobson](https://github.com/trevorjdobson)
 
 ## Acknowledgements
 
