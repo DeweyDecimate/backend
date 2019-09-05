@@ -26,7 +26,7 @@ public class ClubDiscussion {
         this.discussionUser = discussionUser;
         this.bookClub = bookClub;
     }
-    public ClubDiscussion(){};
+    public ClubDiscussion(){}
 
     public long getId() {
         return id;

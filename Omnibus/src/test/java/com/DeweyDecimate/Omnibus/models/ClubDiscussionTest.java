@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ClubDiscussionTest {
+
     ApplicationUser testUser = new ApplicationUser("testUserName","testUserPassword","testFirstName","testLastName");
     BookClub testClub = new BookClub("clubDescription","clubName","clubImg");
     ClubDiscussion testDiscussion = new ClubDiscussion("This is the content",testUser,testClub);
