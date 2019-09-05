@@ -4,8 +4,11 @@ import com.DeweyDecimate.Omnibus.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.security.Principal;
 
 
 @Controller
@@ -22,12 +25,13 @@ public class BookController {
     @Autowired
     BookRepository bookRepository;
 
-    @PostMapping("/book")
-    public RedirectView addBookToClub(String title, String author, String description, String bookImg, long bookClubId, long userId){
-        BookClub currentClub = bookClubRepository.getOne(bookClubId);
+    @PostMapping("/book/{clubId}")
+    public RedirectView addBookToClub(String title, String author, String description, String bookImg, @PathVariable long clubId, Principal p){
+        ApplicationUser loggedUser = applicationUserRepository.findByUsername(p.getName());
+        BookClub currentClub = bookClubRepository.getOne(clubId);
         boolean isClubMember = false;
         for(Membership m : currentClub.getMemberships()){
-            if(m.getApplicationUser().getId() == userId){
+            if(m.getApplicationUser().getId() == loggedUser.getId()){
                 isClubMember = true;
                 break;
             }
@@ -42,12 +46,12 @@ public class BookController {
         return new RedirectView("/clubs/" + currentClub.getRandomId());
     }
 
-    @DeleteMapping("/book")
-    public RedirectView deleteBook(long bookId, long userId, long bookClubId){
-        BookClub currentClub = bookClubRepository.getOne(bookClubId);
-        ApplicationUser applicationUser = applicationUserRepository.getOne(userId);
+    @DeleteMapping("/book/{clubId}")
+    public RedirectView deleteBook(long bookId, @PathVariable long clubId, Principal p){
+        BookClub currentClub = bookClubRepository.getOne(clubId);
+        ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
         for(Membership m : currentClub.getMemberships()){
-            if(m.getApplicationUser().getId() == userId){
+            if(m.getApplicationUser().getId() == applicationUser.getId()){
                 Book deleteBook = bookRepository.getOne(bookId);
                 if(currentClub.getCurrentBook() != null && currentClub.getCurrentBook().equals(deleteBook)) {
                     currentClub.setCurrentBook(null);

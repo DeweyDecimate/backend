@@ -66,8 +66,8 @@ public class ApplicationUserController {
     }
 
     @PutMapping("/users/pic")
-    public RedirectView updatePic(long userId, String imageURL){
-        ApplicationUser applicationUser = applicationUserRepository.getOne(userId);
+    public RedirectView updatePic(String imageURL, Principal p){
+        ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
         applicationUser.setUserImg(imageURL);
         applicationUserRepository.save(applicationUser);
         return new RedirectView("/myprofile");
