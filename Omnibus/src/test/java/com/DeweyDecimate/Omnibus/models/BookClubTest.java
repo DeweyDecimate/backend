@@ -23,7 +23,7 @@ public class BookClubTest {
     @Test
     public void testGetDiscussions(){
         BookClub bookClub = new BookClub("Cool Club", "Cool Name", "Cool Picture");
-        bookClub.discussions = new ArrayList<>();
+        bookClub.discussions = new HashSet<>();
         ClubDiscussion cd1 = new ClubDiscussion();
         ClubDiscussion cd2 = new ClubDiscussion();
         ClubDiscussion cd3 = new ClubDiscussion();
