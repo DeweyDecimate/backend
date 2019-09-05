@@ -69,7 +69,7 @@ public class BookClubController {
     public RedirectView joinClub(String randomId, Principal p, Model m){
         List<BookClub> allClubs = bookClubRepository.findAll();
         if(!allClubs.contains(randomId)){
-            
+
             return new RedirectView("/myprofile");
         }
         BookClub bookClub = bookClubRepository.findByRandomId(randomId);
