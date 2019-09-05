@@ -47,8 +47,16 @@ public class BookClubController {
             membershipRepository.save(membership);
         } else{
             System.out.println("This club already exists");
+            return new RedirectView("/taken");
         }
         return new RedirectView("/clubs/" + randomId);
+    }
+
+    @GetMapping("/taken")
+    public String showClubNameTaken(Principal p, Model m){
+        m.addAttribute("principal", p);
+
+        return "taken";
     }
 
 
