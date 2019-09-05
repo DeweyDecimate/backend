@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Set;
 
 
+
 @Entity
 public class BookClub {
     @Id
@@ -56,7 +57,7 @@ public class BookClub {
         }
         String generatedString = buffer.toString();
 
-        return clubName.replaceAll(" ", "") + generatedString;
+        return clubName.replaceAll("[\\W]", "") + generatedString;
     }
     public List<ClubDiscussion> getDiscussions() {
         return discussions;
