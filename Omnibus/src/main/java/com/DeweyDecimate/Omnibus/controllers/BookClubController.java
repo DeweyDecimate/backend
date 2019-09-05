@@ -75,20 +75,19 @@ public class BookClubController {
 
     @PostMapping("/clubs/membership")
     public RedirectView joinClub(String randomId, Principal p, Model m){
-        List<BookClub> allClubs = bookClubRepository.findAll();
-        if(!allClubs.contains(randomId)){
+        BookClub foundClub = bookClubRepository.findByRandomId(randomId);
+        if (foundClub != null) {
+            BookClub bookClub = bookClubRepository.findByRandomId(randomId);
+            ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
+            Membership membership = new Membership(applicationUser, bookClub, new Date(System.currentTimeMillis()));
+            membershipRepository.save(membership);
 
-            return new RedirectView("/myprofile");
+            return new RedirectView("/clubs/" + randomId);
         }
-        BookClub bookClub = bookClubRepository.findByRandomId(randomId);
-        ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
-        Membership membership = new Membership(applicationUser, bookClub, new Date(System.currentTimeMillis()));
-        membershipRepository.save(membership);
 
-        return new RedirectView("/clubs/" + randomId);
+
+        return new RedirectView("/myprofile");
     }
-
-    //TODO update bookclub information
 
     @PostMapping("/discussion")
     public RedirectView makeDiscussion(String content, Long userId, Long clubId){
