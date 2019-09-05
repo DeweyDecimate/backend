@@ -25,7 +25,6 @@ public class BookController {
     @PostMapping("/book")
     public RedirectView addBookToClub(String title, String author, String description, String bookImg, long bookClubId, long userId){
         BookClub currentClub = bookClubRepository.getOne(bookClubId);
-        ApplicationUser applicationUser = applicationUserRepository.getOne(userId);
         for(Membership m : currentClub.getMemberships()){
             if(m.getApplicationUser().getId() == userId){
                 Book newBook = new Book(title,author,description,bookImg,currentClub);
