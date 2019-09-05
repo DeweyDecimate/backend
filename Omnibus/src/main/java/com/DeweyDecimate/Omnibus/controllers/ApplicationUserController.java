@@ -28,17 +28,24 @@ public class ApplicationUserController {
 
     @PostMapping("/users")
     public RedirectView createUser(String username, String password, String firstname, String lastname){
-        ApplicationUser newUser = new ApplicationUser(username,
-                passwordEncoder.encode(password),
-                firstname,
-                lastname);
+        if (applicationUserRepository.findByUsername(username) == null) {
+            ApplicationUser newUser = new ApplicationUser(username,
+                    passwordEncoder.encode(password),
+                    firstname,
+                    lastname);
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
+            Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        applicationUserRepository.save(newUser);
-        return new RedirectView("/myprofile");
+            applicationUserRepository.save(newUser);
+
+            return new RedirectView("/myprofile");
+
+        } else {
+
+            return new RedirectView("/taken");
+        }
     }
 
     @GetMapping("/myprofile")
