@@ -29,7 +29,7 @@ public class BookClub {
     String randomId;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "bookClub")
-    List<ClubDiscussion> discussions;
+    Set<ClubDiscussion> discussions;
 
     @OneToOne
     Book currentBook;
@@ -59,7 +59,7 @@ public class BookClub {
 
         return clubName.replaceAll("[\\W]", "") + generatedString;
     }
-    public List<ClubDiscussion> getDiscussions() {
+    public Set<ClubDiscussion> getDiscussions() {
         return discussions;
     }
 
