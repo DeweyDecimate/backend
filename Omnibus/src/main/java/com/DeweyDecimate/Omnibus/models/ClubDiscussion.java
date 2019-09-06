@@ -13,6 +13,7 @@ public class ClubDiscussion {
     String content;
 
     //User Who Posted It or Membership?
+    // I like the user who posted it a lot! This keeps everything super clean.
     @ManyToOne
     ApplicationUser discussionUser;
     //Club That it belongs to

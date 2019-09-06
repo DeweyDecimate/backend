@@ -38,11 +38,14 @@ public class BookClub {
         this.description = description;
         this.clubName = clubName;
         this.clubImg = clubImg;
-        this.randomId = this.generateRandomId(clubName);
+        // since generateRandomId is a static method, you generally want to avoid
+        // using this (or any instance) to access it.
+        this.randomId = generateRandomId(clubName);
     }
 
     public BookClub(){}
 
+    // Thank you for citing your source here!!
 //  https://www.baeldung.com/java-random-string
     public static String generateRandomId(String clubName){
         int leftLimit = 97; // letter 'a'
@@ -57,6 +60,11 @@ public class BookClub {
         }
         String generatedString = buffer.toString();
 
+        // I like that you made the random id start with the club name.
+        // The last thing you probably want to do at this point is make sure you
+        // don't have a collision with any other club already in your database!
+        // That way you can avoid the error when you try to insert it.
+        // Or at least, you'd need that at Amazon scale.
         return clubName.replaceAll("[\\W]", "") + generatedString;
     }
     public List<ClubDiscussion> getDiscussions() {
@@ -105,5 +113,14 @@ public class BookClub {
 
     public String toString() {
         return String.format("%s %s", this.description, this.clubName);
+    }
+
+    public boolean isMember(ApplicationUser user) {
+        for (Membership m : this.memberships) {
+            if (m.applicationUser == user) {
+                return true;
+            }
+        }
+        return false;
     }
 }

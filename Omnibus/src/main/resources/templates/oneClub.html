@@ -11,19 +11,23 @@
     <nav th:replace="fragments/nav :: nav"></nav>
 </header>
     <main class="mt-5 d-flex p-3 justify-content-center flex-wrap">
-        <div class="w-75 m-3 shadow bg-light rounded border border-secondary p-3 card">
+        <!-- I did a find-and-replace in this file to change w-75 to col-md-9.
+            Your app got super cramped on small screens, with way too much whitespace and content struggling to render.
+            Using col-md-9 means that it'll take 75% of available space on screens that are tablet-or-larger,
+            but take the full width on smaller screens. It goes a long way towards making your app more mobile-friendly. -->
+        <div class="col-md-9 m-3 shadow bg-light rounded border border-secondary p-3 card">
 
 
             <div class="card-header media">
                 <img src="/feature.jpg" width="20%" alt="default club image">
-                <div class="ml-5 text-left w-75">
+                <div class="ml-5 text-left col-md-9">
                     <h1 class="display-3" th:text="${currentClub.clubName}">Club Name</h1>
                     <h3 th:text="${currentClub.description}">Club Description</h3>
                     <div th:each="membership : ${currentClub.memberships}">
                         <div th:if="${membership.applicationUser.equals(loggedUser)}" class="align-items-start mt-3 mb-3 d-flex flex-wrap">
-                            <h4 class="mr-3">Invite your friends:</h4>
+                            <h4 class="md-3">Invite your friends:</h4>
                             <p id="join-code" class="border border-secondary p-1 w-50 text-center" th:text="${currentClub.randomId}">Join Code</p>
-                            <button class="p-1 ml-3 btn btn-dark" onclick="copyToClipboard('#join-code')">Copy Code</button>
+                            <button class="btn btn-dark" onclick="copyToClipboard('#join-code')">Copy Code</button>
                         </div>
                     </div>
                 </div>
@@ -31,10 +35,10 @@
 
             <div class="card-body d-flex justify-content-center flex-wrap">
                 <div th:if="${currentClub.currentBook}" class="w-100 d-flex justify-content-center flex-wrap mb-5">
-                    <h1 class="card-title w-75">Current Book</h1>
-                    <div class="media rounded border border-secondary p-3 w-75 bg-light">
+                    <h1 class="card-title col-md-9">Current Book</h1>
+                    <div class="media rounded border border-secondary p-3 col-md-9 bg-light">
                         <img th:src="${currentClub.currentBook.bookImg}" onerror="this.onerror=null; this.src='/default-book-cover.png'" width="20%">
-                        <div class="ml-5 text-left w-75">
+                        <div class="ml-5 text-left col-md-9">
                             <h2 th:text="${currentClub.currentBook.title}">Book Title</h2>
                             <h5 th:text="${currentClub.currentBook.author}">Book Author</h5>
                             <p th:text="${currentClub.currentBook.description}">Book Description</p>
@@ -43,15 +47,17 @@
                 </div>
 
                 <div th:unless="${currentClub.currentBook}" class="w-100 d-flex justify-content-center flex-wrap mb-5">
-                    <h1 class="card-title w-75">Current Book</h1>
-                    <div class="media rounded border border-secondary p-3 w-75">
+                    <h1 class="card-title col-md-9">Current Book</h1>
+                    <div class="media rounded border border-secondary col-10 p-3">
                         <a href="#addBook" class="w-100 d-flex justify-content-center"><button class="btn btn-dark">Please Add a New Book</button></a>
                     </div>
                 </div>
 
-                <h1 class="card-title w-75">Club Members</h1>
-                <div class="rounded border border-secondary w-75 d-flex flex-wrap pl-1 pr-1 mb-5 bg-light">
-                    <div th:each="member : ${currentClub.memberships}" class="w-50 p-2 mb-2 mt-2">
+                <h1 class="card-title col-md-9">Club Members</h1>
+                <div class="rounded border border-secondary col-md-9 d-flex flex-wrap pl-1 pr-1 mb-5 bg-light">
+                    <!-- Changing these to col-md-6 means they'll take half the available space on medium-or-larger screens,
+                    but take the full space on small screens, which can help avoid issues with mobile layout. -->
+                    <div th:each="member : ${currentClub.memberships}" class="col-md-6 p-2 mb-2 mt-2">
                         <a th:href="@{/users/{id}(id=${member.applicationUser.id})}">
                             <div class="media btn btn-outline-dark">
                                 <img th:src="${member.applicationUser.userImg}" onerror="this.onerror=null; this.src='/default-avatar.png'" alt="user profile picture" width="20%">
@@ -64,10 +70,11 @@
                     </div>
                 </div>
 
-                <h1 class="card-title w-75">Club Details</h1>
+                <h1 class="card-title col-md-9">Club Details</h1>
 
-                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3 mb-5 bg-light" id="addBook">
-                    <div class="w-50">
+                <div class="rounded border border-secondary col-md-9 d-flex flex-wrap p-3 mb-5 bg-light" id="addBook">
+                    <!-- these each take up half the width on large screens, but the full space on small/medium screens. -->
+                    <div class="col-lg-6">
                         <h3 class="mb-3">Add a New Book</h3>
                         <form method="POST" th:action="${'/book/' + currentClub.id}">
                             <div class="form-group">
@@ -94,7 +101,7 @@
                         </form>
                     </div>
 
-                    <div class="w-50 pl-4 pr-4">
+                    <div class="col-lg-6 pl-4 pr-4">
                         <h3 class="mb-3">Previous Books</h3>
                         <ul th:if="${currentClub.books.size()>0}" class="list-group d-flex">
                             <li class="list-group-item p-1" th:each="book : ${currentClub.books}">
@@ -110,14 +117,14 @@
                 </div>
 
 
-                <div class="w-75 d-flex justify-content-center align-items-center">
+                <div class="col-md-9 d-flex justify-content-center align-items-center">
                     <h1 class="card-title">Discussion Board</h1>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-dark ml-3" data-toggle="modal" data-target="#exampleModal">
                         Add a Post
                     </button>
                 </div>
-                <div class="rounded border border-secondary w-75 d-flex flex-wrap p-3 bg-light justify-content-center">
+                <div class="rounded border border-secondary col-md-9 d-flex flex-wrap p-3 bg-light justify-content-center">
                     <!-- https://getbootstrap.com/docs/4.0/components/modal/ -->
 
                     <!-- Modal -->
@@ -160,6 +167,13 @@
                             </div>
                         </div>
 
+                    </div>
+                    <!-- some nice content for if there are no discussion posts yet -->
+                    <div th:unless="${currentClub.discussions.size() > 0}" class="d-flex justify-content-center flex-wrap">
+                        <h3>This club is quiet so far!</h3>
+                        <button type="button" class="btn btn-dark ml-3" data-toggle="modal" data-target="#exampleModal">
+                            Add a Post
+                        </button>
                     </div>
                 </div>
 
