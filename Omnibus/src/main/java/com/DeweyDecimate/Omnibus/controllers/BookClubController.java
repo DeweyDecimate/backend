@@ -60,6 +60,13 @@ public class BookClubController {
 
     @GetMapping("/clubs/{randomId}")
     public String getSpecificClub(@PathVariable String randomId, Principal p, Model m){
+        // you never check here that the logged-in user is in the club.
+        // So here's the scenario that makes that bad...
+        // Michelle posts mean things in the discussion about John.
+        // John is not in this group.
+        // But John's friend Nicholas is in the group, and sends John the link to the group.
+        // John can now see my mean posts without having to join the group himself.
+        // I would prefer this show some sort of "Want to join the club?" button.
         BookClub bookClub = bookClubRepository.findByRandomId(randomId);
         m.addAttribute("principal", p);
         m.addAttribute("currentClub", bookClub);
@@ -88,6 +95,9 @@ public class BookClubController {
 
     @PostMapping("/discussion/{clubId}")
     public RedirectView makeDiscussion(String content, @PathVariable long clubId, Principal p){
+        // ooh, this one isn't guarded against membership either!
+        // So John could make a POST request to the club by its ID, and have a post in a club
+        // that he NEVER JOINED.
         BookClub club = bookClubRepository.getOne(clubId);
         ApplicationUser user = applicationUserRepository.findByUsername(p.getName());
         ClubDiscussion discussion = new ClubDiscussion(content,user,club);

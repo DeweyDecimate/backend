@@ -114,4 +114,13 @@ public class BookClub {
     public String toString() {
         return String.format("%s %s", this.description, this.clubName);
     }
+
+    public boolean isMember(ApplicationUser user) {
+        for (Membership m : this.memberships) {
+            if (m.applicationUser == user) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
