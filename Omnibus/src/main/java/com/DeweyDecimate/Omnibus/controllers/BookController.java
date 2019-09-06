@@ -37,7 +37,8 @@ public class BookController {
             }
         }
 
-        if (isClubMember == true) {
+        // checking if something == true is the same as just checking the thing
+        if (isClubMember) {
             Book newBook = new Book(title, author, description, bookImg, currentClub);
             bookRepository.save(newBook);
             currentClub.setCurrentBook(newBook);
@@ -54,6 +55,8 @@ public class BookController {
             if(m.getApplicationUser().getId() == applicationUser.getId()){
                 Book deleteBook = bookRepository.getOne(bookId);
                 if(currentClub.getCurrentBook() != null && currentClub.getCurrentBook().equals(deleteBook)) {
+                    // if you really want to get fancy, you could grab another book from the club's books
+                    // to set as the current book.
                     currentClub.setCurrentBook(null);
                 }
                 bookRepository.delete(deleteBook);

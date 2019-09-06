@@ -48,21 +48,22 @@ public class ApplicationUserController {
         }
     }
 
+    // I'm so glad that these use the same template!
+    // The last thing I would change would be to unify a little more of this code:
+    private String showProfile(Principal p, ApplicationUser viewedUser, ApplicationUser loggedUser, Model m) {
+        m.addAttribute("principal", p);
+        m.addAttribute("viewedUser", viewedUser);
+        m.addAttribute("loggedUser", loggedUser);
+        return "myprofile";
+    }
     @GetMapping("/myprofile")
     public String getMyprofile(Principal p, Model m){
-        m.addAttribute("principal", p);
-        m.addAttribute("loggedUser", applicationUserRepository.findByUsername(p.getName()));
-        m.addAttribute("viewedUser", applicationUserRepository.findByUsername(p.getName()));
-        return "myprofile";
+        return showProfile(p, applicationUserRepository.findByUsername(p.getName()), applicationUserRepository.findByUsername(p.getName()), m);
     }
 
     @GetMapping("/users/{id}")
     public String getUser(@PathVariable long id, Principal p, Model m){
-        ApplicationUser viewedUser = applicationUserRepository.findById(id).get();
-        m.addAttribute("principal", p);
-        m.addAttribute("viewedUser", viewedUser);
-        m.addAttribute("loggedUser", applicationUserRepository.findByUsername(p.getName()));
-        return "myprofile";
+        return showProfile(p, applicationUserRepository.findById(id).get(), applicationUserRepository.findByUsername(p.getName()), m);
     }
 
     @PutMapping("/users/pic")

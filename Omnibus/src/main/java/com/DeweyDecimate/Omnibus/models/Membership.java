@@ -19,6 +19,8 @@ public class Membership {
 
     Date dateJoined;
 
+    // Could have done the same thing here that you did in discussions, and grab
+    // the current time as part of the constructor logic.
     public Membership(ApplicationUser applicationUser, BookClub bookClubId, Date dateJoined) {
         this.applicationUser = applicationUser;
         this.bookClubId = bookClubId;

@@ -30,11 +30,9 @@ public class BookClubController {
     @PostMapping("/clubs")
     public RedirectView makeClub (String description, String clubName, Principal p){
 //  Create new bookclub
-        String randomId = null;
         if(bookClubRepository.findByClubName(clubName) == null){
             BookClub bc = new BookClub(description, clubName, "/default-book-cover.png");
             bookClubRepository.save(bc);
-            randomId = bc.getRandomId();
 //  new membership
             ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
             Date date = new Date(System.currentTimeMillis());
@@ -43,11 +41,13 @@ public class BookClubController {
 
 //  saves application user and bookclub to respective DB
             membershipRepository.save(membership);
+            // logically, I like this a little better in the conditional
+            return new RedirectView("/clubs/" + bc.getRandomId());
         } else{
             System.out.println("This club already exists");
             return new RedirectView("/taken");
         }
-        return new RedirectView("/clubs/" + randomId);
+
     }
 
     @GetMapping("/taken")
