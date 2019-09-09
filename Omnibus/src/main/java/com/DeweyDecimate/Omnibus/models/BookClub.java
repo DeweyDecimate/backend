@@ -23,6 +23,7 @@ public class BookClub {
 
     @Column(unique = true)
     String clubName;
+
     String clubImg;
 
     @Column(unique = true)
@@ -59,6 +60,7 @@ public class BookClub {
 
         return clubName.replaceAll("[\\W]", "") + generatedString;
     }
+
     public List<ClubDiscussion> getDiscussions() {
         return discussions;
     }
