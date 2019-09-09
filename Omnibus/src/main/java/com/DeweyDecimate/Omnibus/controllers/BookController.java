@@ -20,9 +20,6 @@ public class BookController {
     BookClubRepository bookClubRepository;
 
     @Autowired
-    MembershipRepository membershipRepository;
-
-    @Autowired
     BookRepository bookRepository;
 
     @PostMapping("/book/{clubId}")
