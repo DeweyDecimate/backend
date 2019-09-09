@@ -36,7 +36,7 @@ public class BookController {
                 break;
             }
         }
-
+//reduce this to "if(isClubMember)"
         if (isClubMember == true) {
             Book newBook = new Book(title, author, description, bookImg, currentClub);
             bookRepository.save(newBook);
@@ -52,6 +52,7 @@ public class BookController {
         ApplicationUser applicationUser = applicationUserRepository.findByUsername(p.getName());
         for(Membership m : currentClub.getMemberships()){
             if(m.getApplicationUser().getId() == applicationUser.getId()){
+//                CR: change deleteBook to a better name because it sounds like an action right now, e.g. bookToBeDeleted
                 Book deleteBook = bookRepository.getOne(bookId);
                 if(currentClub.getCurrentBook() != null && currentClub.getCurrentBook().equals(deleteBook)) {
                     currentClub.setCurrentBook(null);

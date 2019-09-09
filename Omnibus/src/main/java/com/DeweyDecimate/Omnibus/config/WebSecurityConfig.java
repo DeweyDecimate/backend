@@ -36,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/signup", "/login", "/error", "/taken", "/*.png", "/*.jpg").permitAll()
+//                put pattern in here to allow static templates if using non bootstrap css
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .anyRequest().authenticated()
                 .and()

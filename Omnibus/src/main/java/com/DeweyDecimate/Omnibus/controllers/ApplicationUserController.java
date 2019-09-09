@@ -43,11 +43,13 @@ public class ApplicationUserController {
             return new RedirectView("/myprofile");
 
         } else {
-
+//            CR: redirect to sign up with a model that says that the username is taken
+//            Make the message hidden if the name is not taken and show when the name is taken
             return new RedirectView("/taken");
         }
     }
 
+//    CR: is the principal the same user as loggedUser? Maybe this can be reduced to one attribute setup?
     @GetMapping("/myprofile")
     public String getMyprofile(Principal p, Model m){
         m.addAttribute("principal", p);

@@ -15,6 +15,7 @@
             <h1>
                 <span th:if="${viewedUser.username.equals(principal.name)}">My</span>
                 <span th:unless="${viewedUser.username.equals(principal.name)}" th:text="${viewedUser.username}"></span>
+<!--                CR: This is not needed:-->
                 <span th:unless="${viewedUser.username.equals(principal.name)}">'s</span>
                  Profile
             </h1>
