@@ -58,19 +58,7 @@ public class IntegrationTests {
                 .perform(MockMvcRequestBuilders.get("/login"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("<form method=\"POST\" action=\"/login\">\n" +
-                        "                        <ul class=\"list-unstyled\">\n" +
-                        "                            <li class=\"m-3\">\n" +
-                        "                                <label for=\"username\"> Username: </label><input type=\"text\" name=\"username\" id=\"username\" />\n" +
-                        "                            </li>\n" +
-                        "                            <li class=\"m-3\">\n" +
-                        "                                <label for=\"password\">Password: </label><input type=\"password\" name=\"password\" id=\"password\" />\n" +
-                        "                            </li>\n" +
-                        "                            <li class=\"m-3\">\n" +
-                        "                                <input class=\"btn btn-dark btn-lg\" type=\"submit\" />\n" +
-                        "                            </li>\n" +
-                        "                        </ul>\n" +
-                        "                    </form>")));
+                .andExpect(MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("<h1 class=\"display-3\">Omnibus</h1>")));
     }
     @Test
     public void testSignUpRoute_Status200() throws Exception {
